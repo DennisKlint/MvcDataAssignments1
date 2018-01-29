@@ -1,0 +1,21 @@
+﻿@model MvcDataAssignments.Models.PersonModel
+
+<div class="col-md-2 well">
+    <dl>
+        @*<dt>
+                @Html.DisplayFor(modelItem => Model.Id)
+            </dt>*@
+        <dd>
+            @Html.DisplayFor(modelItem => Model.Name)
+        </dd>
+        <dd>
+            @Html.DisplayFor(modelItem => Model.City)
+        </dd>
+        <dd>
+            @Html.DisplayFor(modelItem => Model.PhoneNumber)
+        </dd>
+        <dd>
+            @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
+        </dd>
+    </dl>
+</div>

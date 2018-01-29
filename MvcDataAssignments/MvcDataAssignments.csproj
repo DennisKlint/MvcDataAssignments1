@@ -273,6 +273,7 @@
     <Content Include="Views\PersonelList\AddPerson.cshtml" />
     <Content Include="Views\PersonelList\Delete.cshtml" />
     <Content Include="Views\PersonelList\Search.cshtml" />
+    <Content Include="Views\PersonelList\PersonPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
