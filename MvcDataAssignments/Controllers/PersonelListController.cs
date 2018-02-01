@@ -28,6 +28,11 @@ namespace MvcDataAssignments.Controllers
                 people = people.Where(s => s.Name.Contains(id) || s.City.Contains(id));
             }
 
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("PartialListView", people);
+            }
+
             return View(people);
         }
 
@@ -49,8 +54,15 @@ namespace MvcDataAssignments.Controllers
         {
             try
             {
-                person.Id = personel[personel.Count - 1].Id + 1;
-
+                try
+                {
+                    person.Id = personel[personel.Count - 1].Id + 1;
+                }
+                //If the list is empty
+                catch
+                {
+                    person.Id = 1;
+                }
                 personel.Add(person);
                 
 
@@ -86,10 +98,28 @@ namespace MvcDataAssignments.Controllers
             }
         }
 
+        // GET: EditPerson
+        public ActionResult PersonEdit(PersonModel updatedPerson)
+        {
+
+            personel.Single(r => r.Id == updatedPerson.Id).Name = updatedPerson.Name;
+            personel.Single(r => r.Id == updatedPerson.Id).City = updatedPerson.City;
+            personel.Single(r => r.Id == updatedPerson.Id).PhoneNumber = updatedPerson.PhoneNumber;
+
+            return PartialView("PersonPartialView", personel.Single(r => r.Id == updatedPerson.Id));
+        }
+
         // GET: PersonelList/Delete/5
         public ActionResult Delete(int id)
         {
             var person1 = personel.Single(r => r.Id == id);
+
+            if (Request.IsAjaxRequest())
+            {
+                personel.Remove(person1);
+                return PartialView("PersonPartialView", person1);
+            }
+
             return View(person1);
         }
 
@@ -108,6 +138,14 @@ namespace MvcDataAssignments.Controllers
             {
                 return View();
             }
+        }
+
+        //Custom Delete Action
+        public ActionResult PersonDelete(int id)
+        {
+            var person = personel.Single(r => r.Id == id);
+            personel.Remove(person);
+            return PartialView("PartialListView", personel);
         }
 
         static List<PersonModel> personel = new List<PersonModel>

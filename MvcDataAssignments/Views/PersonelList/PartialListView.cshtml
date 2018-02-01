@@ -1,0 +1,9 @@
+﻿@model IEnumerable<MvcDataAssignments.Models.PersonModel>
+
+@foreach (var item in Model)
+{
+    <div class="col-md-2 well" id="personWell-@item.Id">
+        @Html.Partial("PersonPartialView", item)
+    </div>
+    @Html.Partial("FormPartialView", item)
+}

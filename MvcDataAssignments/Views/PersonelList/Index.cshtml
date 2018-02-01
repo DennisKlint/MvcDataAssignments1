@@ -9,23 +9,37 @@
 <p>
     @Html.ActionLink("Create New", "AddPerson")
 </p>
-@using (Html.BeginForm("Index", "personellist", FormMethod.Get))
+@*@using (Html.BeginForm("Index", "personellist", FormMethod.Get))
 {
     <p>
         Name/City: @Html.TextBox("id") <br />
         <input type="submit" value="Filter" />
     </p>
+}*@
+
+@using (Ajax.BeginForm(
+    new AjaxOptions
+    {
+        HttpMethod = "get",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "personList"
+    }))
+{
+    <input type="search" name="id" />
+    <input type="submit" value="search by Name/City" />
 }
 
 
-<div class="container">
+<div class="container" id="personList">
     <div class="row">
 
-        @foreach (var item in Model)
+        @Html.Partial("PartialListView", Model)
+
+        @*@foreach (var item in Model)
         {
 
             @Html.Partial("PersonPartialView", item)
 
-        }
+        }*@
     </div>
 </div>
